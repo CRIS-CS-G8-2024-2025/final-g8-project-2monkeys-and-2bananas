@@ -40,10 +40,10 @@ def draw(player, elapsed_time, stars):
 
     # the time survived at the top left corner
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
+    WIN.blit(time_text, (10, 10))
+
+    # draw the spaceship
     WIN.blit(SPACESHIP, (player.x, player.y))
-    
-    # draw the player ( a pink rectangle)
-    pygame.draw.rect(WIN, "pink", player)
 
     # draw all the stars ( white rectangles )
     for star in stars:
