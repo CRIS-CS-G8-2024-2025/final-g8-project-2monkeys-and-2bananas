@@ -2,14 +2,17 @@
 Debra, G8, Computer Science
 The Final Project:
 This program is a game that uses mouse to
-control the Spaceship and avoiding the stars to win'''
+control the Spaceship and avoiding the stars to win
+'''
 
 import pygame
 import time
 import random
 pygame.font.init()
 
+# size of the game window in pixels
 WIDTH, HEIGHT = 1000, 800
+
 WIN = pygame.display.set_mode((WIDTH, HEIGHT)) 
 pygame.display.set_caption( "Space Dodge" )
 
