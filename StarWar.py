@@ -30,17 +30,31 @@ PLAYER_VEL = 5 # how fast the player moves
 STAR_WIDTH = 10
 STAR_HEIGHT = 20
 STAR_VEL = 3 # how fast the stars fall
+HITS = 0
+HIT_TIME = 0
+MAX_HITS = 3
 
 # font and size for the text 
 FONT = pygame.font.SysFont("comicsans", 30)
 
 # function to draw everything on the screen 
 def draw(player, elapsed_time, stars):
+    global HITS, HIT_TIME
     WIN.blit(BG, (0, 0))
 
     # the time survived at the top left corner
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
+
+    # the time survived at the top left corner
+    if HIT_TIME == 0 or (elapsed_time - HIT_TIME) > 1:
+        hit_color = "white"
+        HIT_TIME = 0
+    else:
+        hit_color = "red"
+
+    hits_text = FONT.render(f"Hits: {HITS}", 1, hit_color)
+    WIN.blit(hits_text, (10, 50))
 
     # draw the spaceship
     WIN.blit(SPACESHIP, (player.x, player.y))
@@ -53,6 +67,7 @@ def draw(player, elapsed_time, stars):
 
 # the main part of the game 
 def main():
+    global HITS, HIT_TIME
     run = True
 
     # create player rectangle near the bottom of the screen 
@@ -68,9 +83,6 @@ def main():
 
     # list to store all the stars
     stars = []
-
-    # if the plater has been hit by a star
-    hit = False
     
     while run:
         # update the time and how long the player has lasted 
@@ -107,11 +119,13 @@ def main():
                 stars.remove(star) # remove star when it goes off the screen 
             elif star.y + star.height >= player.y and star.colliderect(player):
                 stars.remove(star) # remove star if it hits the player 
-                hit = True # mark that the player was hit 
+                HITS += 1 # mark that the player was hit
+                HIT_TIME = time.time() - start_time
                 break # exit the loop 
 
-        # If the player was hit, show "You Lost!" and end the game
-        if hit:
+        # If the player was hit max times, show "You Lost!" and end the game
+        if HITS >= MAX_HITS:
+            draw(player, elapsed_time, stars)  # call draw() to update Hits text
             lost_text = FONT.render("You Lost!", 1, "white")
             WIN.blit(lost_text, (WIDTH/2 - lost_text.get_width()/2, HEIGHT/2 - lost_text.get_height()/2))
             pygame.display.update()
