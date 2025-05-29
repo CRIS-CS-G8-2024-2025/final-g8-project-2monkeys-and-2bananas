@@ -13,29 +13,29 @@ WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT)) 
 pygame.display.set_caption( "Space Dodge" )
 
-BG = pygame.transform.scale(pygame.image.load("StarWar.PNG"), (WIDTH, HEIGHT))
-
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
-
+STAR_WIDTH = 40
+STAR_HEIGHT = 40
 PLAYER_VEL = 5
-STAR_WIDTH = 10
-STAR_HEIGHT = 20
 STAR_VEL = 3
+
+BG = pygame.transform.scale(pygame.image.load("StarWar.PNG"), (WIDTH, HEIGHT))
+
+STAR = pygame.transform.scale(pygame.image.load("star.png"), (STAR_WIDTH, STAR_HEIGHT))
 
 FONT = pygame.font.SysFont("comicsans", 30)
 
 
 def draw(player, elapsed_time, stars):
+    globals
     WIN.blit(BG, (0, 0))
 
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
 
-    pygame.draw.rect(WIN, "pink", player)
-
     for star in stars:
-        pygame.draw.rect(WIN, "white", star)
+        WIN.blit(STAR,(star.x, star.y))    
 
     pygame.display.update()
 
@@ -102,6 +102,3 @@ def main():
 
 if __name__ == "__main__":  
     main()  
-
-
-   
