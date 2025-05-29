@@ -20,19 +20,19 @@ pygame.display.set_caption( "Space Dodge" )
 # size of the player's spaceship 
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
+STAR_WIDTH = 40
+STAR_HEIGHT = 40
+PLAYER_VEL = 5
+STAR_VEL = 3
+PLAYER_VEL = 5 # how fast the player moves 
+HITS = 0
+HIT_TIME = 0
+MAX_HITS = 3
 
 # load background image and make the size fit the screen 
 BG = pygame.transform.scale(pygame.image.load("StarWar.PNG"), (WIDTH, HEIGHT))
 SPACESHIP = pygame.transform.scale(pygame.image.load("spaceship.png"), (PLAYER_WIDTH, PLAYER_HEIGHT))
-
-PLAYER_VEL = 5 # how fast the player moves 
-
-STAR_WIDTH = 10
-STAR_HEIGHT = 20
-STAR_VEL = 3 # how fast the stars fall
-HITS = 0
-HIT_TIME = 0
-MAX_HITS = 3
+STAR = pygame.transform.scale(pygame.image.load("star.png"), (STAR_WIDTH, STAR_HEIGHT))
 
 # font and size for the text 
 FONT = pygame.font.SysFont("comicsans", 30)
@@ -61,7 +61,7 @@ def draw(player, elapsed_time, stars):
 
     # draw all the stars ( white rectangles )
     for star in stars:
-        pygame.draw.rect(WIN, "white", star)
+        WIN.blit(STAR,(star.x, star.y))    
 
     pygame.display.update()
 
@@ -140,6 +140,3 @@ def main():
 # makes sure the game starts when we run the file 
 if __name__ == "__main__":  
     main()  
-
-
-   
